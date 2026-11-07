@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>ХАНТ | Стрит-арт, граффити & монументальная роспись</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Syne:wght@700;800;900&family=Unbounded:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            graffiti: ['"Permanent Marker"', 'cursive'],
+            heading: ['"Unbounded"', 'sans-serif'],
+            syne: ['"Syne"', 'sans-serif'],
+          },
+          colors: {
+            acid: {
+              lime: '#ccff00',
+              orange: '#ff3700',
+              cyan: '#00f0ff',
+              magenta: '#ff0055',
+            },
+            dark: {
+              950: '#070709',
+              900: '#0d0e12',
+              850: '#12141a',
+              800: '#181b24',
+            }
+          },
+          boxShadow: {
+            'brutal-lime': '4px 4px 0px 0px #ccff00',
+            'brutal-orange': '4px 4px 0px 0px #ff3700',
+            'brutal-white': '4px 4px 0px 0px #ffffff',
+            'brutal-black': '4px 4px 0px 0px #000000',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .bg-street-grid {
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(204, 255, 0, 0.08) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 36px 36px, 36px 36px;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .tag-ticker {
+      display: flex;
+      width: max-content;
+      animation: ticker 25s linear infinite;
+    }
+
+    .bg-wall-tag {
+      font-family: 'Permanent Marker', cursive;
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      white-space: nowrap;
+    }
+
+    .clip-corner {
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+    }
+
+    input, select, textarea {
+      font-size: 16px !important;
+    }
+  </style>
+</head>
+<body class="bg-dark-950 text-neutral-200 font-heading antialiased selection:bg-acid-lime selection:text-black overflow-x-hidden bg-street-grid relative">
+
+  <!-- Фоновые граффити-теги -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10 opacity-10 sm:opacity-15">
+    <div class="bg-wall-tag text-6xl md:text-9xl text-acid-lime top-[8%] -left-8 md:-left-12 -rotate-12">XANT // CREW</div>
+    <div class="bg-wall-tag text-7xl md:text-[13rem] text-white/40 top-[28%] -right-10 md:-right-16 rotate-6 font-graffiti">SPRAY OR DIE</div>
+    <div class="bg-wall-tag text-5xl md:text-8xl text-acid-cyan top-[52%] left-4 md:left-10 rotate-3">FAT CAP • 94</div>
+    <div class="bg-wall-tag text-7xl md:text-[11rem] text-acid-orange top-[72%] -left-12 md:-left-20 -rotate-6">STREET ART</div>
+    <div class="bg-wall-tag text-6xl md:text-8xl text-white/50 top-[90%] right-4 md:right-8 rotate-12">CAN CONTROL</div>
+    <div class="absolute top-[15%] left-[20%] w-72 md:w-[500px] h-72 md:h-[500px] bg-acid-lime/10 rounded-full blur-[100px] md:blur-[140px]"></div>
+    <div class="absolute top-[60%] right-[10%] w-80 md:w-[600px] h-80 md:h-[600px] bg-acid-orange/10 rounded-full blur-[110px] md:blur-[160px]"></div>
+  </div>
+
+  <!-- Навигация -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-dark-950/95 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 group">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-acid-lime text-black font-graffiti text-xl sm:text-2xl flex items-center justify-center shadow-brutal-white rotate-[-3deg] group-hover:rotate-0 transition-all duration-300">
+          X
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading font-black text-xl sm:text-3xl tracking-tighter text-white group-hover:text-acid-lime transition-colors">
+            ХАНТ<span class="text-acid-lime">.</span>
+          </span>
+          <span class="text-[8px] sm:text-[9px] font-bold tracking-[0.25em] uppercase text-neutral-400">Street Art Studio</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wider text-neutral-300">
+        <a href="#portfolio" class="hover:text-acid-lime transition-colors">Портфолио</a>
+        <a href="#services" class="hover:text-acid-lime transition-colors">Объекты</a>
+        <a href="#workflow" class="hover:text-acid-lime transition-colors">Процесс</a>
+        <a href="#booking" class="hover:text-acid-lime transition-colors">Заявка</a>
+        <a href="#contacts" class="hover:text-acid-lime transition-colors">Контакты</a>
+      </nav>
+
+      <div class="hidden md:flex items-center gap-5">
+        <a href="#booking" class="relative px-5 py-3 bg-acid-lime hover:bg-white text-black font-black text-xs uppercase tracking-wider clip-corner shadow-brutal-orange hover:translate-x-0.5 hover:translate-y-0.5 active:scale-95 transition-all duration-200">
+          Оставить заявку
+        </a>
+      </div>
+
+      <button id="mobileMenuBtn" aria-label="Меню" class="md:hidden text-acid-lime p-2 -mr-2 focus:outline-none">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Мобильное меню -->
+    <div id="mobileMenu" class="hidden md:hidden px-6 pt-4 pb-6 bg-dark-900/95 border-b border-white/10 space-y-3 text-center font-bold uppercase text-xs tracking-wider">
+      <a href="#portfolio" class="block py-2.5 text-white hover:text-acid-lime">Портфолио</a>
+      <a href="#services" class="block py-2.5 text-white hover:text-acid-lime">Объекты</a>
+      <a href="#workflow" class="block py-2.5 text-white hover:text-acid-lime">Процесс</a>
+      <a href="#booking" class="block py-2.5 text-white hover:text-acid-lime">Заявка</a>
+      <a href="#contacts" class="block py-2.5 text-white hover:text-acid-lime">Контакты</a>
+      <a href="#booking" class="block py-3.5 bg-acid-lime text-black font-black text-xs uppercase shadow-brutal-orange mt-2">Оставить заявку</a>
+    </div>
+  </header>
+
+  <!-- Бегущая строка -->
+  <div class="pt-16 sm:pt-20 border-b border-white/10 bg-dark-900/80 overflow-hidden py-2 sm:py-2.5">
+    <div class="tag-ticker font-graffiti text-sm sm:text-base tracking-widest text-white/80">
+      <span class="mx-4 sm:mx-6 text-acid-lime">★ ХАНТ ART</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-orange">ФАСАДЫ & МУРАЛЫ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-cyan">ВОРОТА & ЗАБОРЫ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-white">ИНТЕРЬЕРЫ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-lime">100% РУЧНАЯ РАБОТА</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-orange">СТОЙКИЕ ЭМАЛИ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-lime">★ ХАНТ ART</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-orange">ФАСАДЫ & МУРАЛЫ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-acid-cyan">ВОРОТА & ЗАБОРЫ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+      <span class="mx-4 sm:mx-6 text-white">ИНТЕРЬЕРЫ</span>
+      <span class="mx-4 sm:mx-6 text-white/50">•</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero Секция -->
+    <section id="hero" class="relative py-12 sm:py-20 lg:py-28 px-4 sm:px-6 overflow-hidden">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <div class="lg:col-span-7 space-y-5 sm:space-y-7">
+          <h1 class="text-3xl sm:text-5xl lg:text-7xl font-black uppercase tracking-tight text-white leading-[1.1]">
+            МЕНЯЕМ СЕРЫЙ БЕТОН НА <span class="bg-gradient-to-r from-acid-lime via-acid-cyan to-white bg-clip-text text-transparent underline decoration-acid-orange decoration-4">КУЛЬТОВЫЙ АРТ</span>
+          </h1>
+
+          <p class="text-neutral-400 text-xs sm:text-sm md:text-base max-w-xl font-medium leading-relaxed font-sans">
+            Переносим масштабные идеи на фасады домов, гаражные ворота, заборы и интерьеры. Работаем профессиональными фасадными эмалями, которые не выгорают и не боятся морозов.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 pt-1">
+            <a href="#booking" class="px-6 sm:px-8 py-3.5 sm:py-4 bg-acid-lime hover:bg-white text-black font-black text-xs uppercase tracking-widest clip-corner shadow-brutal-orange active:scale-95 transition-all duration-200 text-center flex items-center justify-center gap-2.5">
+              <span>Оставить заявку</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+            <a href="#portfolio" class="px-6 sm:px-8 py-3.5 sm:py-4 bg-dark-900 hover:bg-dark-800 text-white border-2 border-white/20 font-black text-xs uppercase tracking-widest clip-corner shadow-brutal-black transition-all duration-200 text-center">
+              Смотреть работы
+            </a>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 sm:gap-6 pt-5 border-t border-white/10 max-w-lg">
+            <div>
+              <div class="text-lg sm:text-2xl lg:text-3xl font-black text-acid-lime font-syne">10+ ЛЕТ</div>
+              <div class="text-[9px] sm:text-[11px] font-bold text-neutral-400 uppercase mt-0.5">Опыта росписи</div>
+            </div>
+            <div>
+              <div class="text-lg sm:text-2xl lg:text-3xl font-black text-acid-cyan font-syne">100%</div>
+              <div class="text-[9px] sm:text-[11px] font-bold text-neutral-400 uppercase mt-0.5">Стойкость</div>
+            </div>
+            <div>
+              <div class="text-lg sm:text-2xl lg:text-3xl font-black text-acid-orange font-syne truncate">ЭКСКЛЮЗИВ</div>
+              <div class="text-[9px] sm:text-[11px] font-bold text-neutral-400 uppercase mt-0.5">Свой арт</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 relative mt-4 lg:mt-0">
+          <div class="relative p-2.5 sm:p-3 bg-dark-900 border-2 border-white/20 shadow-brutal-lime transition-transform duration-300">
+            <div class="overflow-hidden aspect-[4/3] bg-black relative group">
+              <img src="1776151732812.jpg" alt="Лоурайдер граффити Хант" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="eager">[cite: 1]
+              <div class="absolute top-2.5 left-2.5 bg-black/85 px-2.5 py-0.5 text-[9px] font-black text-acid-lime uppercase tracking-widest border border-acid-lime/40">
+                ХИТ ПРОЕКТ
+              </div>
+            </div>
+            <div class="p-2.5 sm:p-3 flex items-center justify-between">
+              <div>
+                <span class="font-graffiti text-base sm:text-lg text-white">RED LOWRIDER</span>
+                <p class="text-[10px] text-neutral-400 font-sans">Детализированная роспись с эффектом объема</p>
+              </div>
+              <span class="text-xs font-black text-acid-lime font-mono">#01</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Объекты росписи -->
+    <section id="services" class="scroll-mt-20 py-16 sm:py-24 bg-dark-900/60 border-y border-white/10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-4">
+          <div>
+            <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-acid-orange">Поверхности</span>
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase text-white mt-1">ГДЕ СОЗДАЕМ АРТ</h2>
+          </div>
+          <p class="text-xs text-neutral-400 max-w-sm font-sans font-medium">
+            Краска надежно сцепляется с кирпичом, штукатуркой, бетоном, профнастилом и металлом.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div class="p-5 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-lime shadow-brutal-black hover:shadow-brutal-lime transition-all duration-300">
+            <div class="font-graffiti text-2xl sm:text-3xl text-acid-lime mb-2.5 sm:mb-4">01 // ДОМА</div>
+            <h3 class="font-black text-base sm:text-lg text-white mb-1.5 uppercase">Фасады и стены</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Монументальные муралы на загородных домах, коттеджах и глухих торцах зданий.
+            </p>
+          </div>
+
+          <div class="p-5 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-orange shadow-brutal-black hover:shadow-brutal-orange transition-all duration-300">
+            <div class="font-graffiti text-2xl sm:text-3xl text-acid-orange mb-2.5 sm:mb-4">02 // ВОРОТА</div>
+            <h3 class="font-black text-base sm:text-lg text-white mb-1.5 uppercase">Гаражи и ворота</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Превращаем стандартные въездные ворота в визитную карточку вашего дома или автоклуба.
+            </p>
+          </div>
+
+          <div class="p-5 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-cyan shadow-brutal-black hover:shadow-brutal-white transition-all duration-300">
+            <div class="font-graffiti text-2xl sm:text-3xl text-acid-cyan mb-2.5 sm:mb-4">03 // ЗАБОРЫ</div>
+            <h3 class="font-black text-base sm:text-lg text-white mb-1.5 uppercase">Бетон и металл</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Длинные панорамные композиции, скрывающие серые ограждения вокруг участка.
+            </p>
+          </div>
+
+          <div class="p-5 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-white shadow-brutal-black hover:shadow-brutal-white transition-all duration-300">
+            <div class="font-graffiti text-2xl sm:text-3xl text-white mb-2.5 sm:mb-4">04 // ИНТЕРЬЕР</div>
+            <h3 class="font-black text-base sm:text-lg text-white mb-1.5 uppercase">Комнаты & школы</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Стильная роспись учебных классов, офисов, спортивных залов, лофтов и детских комнат.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section id="portfolio" class="scroll-mt-20 py-16 sm:py-24 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 sm:mb-16 gap-4">
+          <div>
+            <div class="inline-block px-2.5 py-1 bg-acid-lime text-black font-black text-[10px] uppercase tracking-widest mb-2 sm:mb-3">
+              Selected Works
+            </div>
+            <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase text-white">ПОРТФОЛИО РАБОТ ХАНТ</h2>
+          </div>
+          <span class="font-graffiti text-acid-lime text-base sm:text-xl">#REAL_GRAFFITI_ART</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <!-- 1 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151732812.jpg" alt="Лоурайдер арт" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 1]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-lime px-2 py-0.5 uppercase border border-acid-lime/30">Стена / Плитка</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Красный Lowrider в динамике</h3>
+              <p class="text-xs text-neutral-400 font-sans">Реалистичная игра хрома, теней и объёмной подвески.</p>
+            </div>
+          </div>
+
+          <!-- 2 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151693982.jpg" alt="Лоси у реки на заборе" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 3]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-cyan px-2 py-0.5 uppercase border border-acid-cyan/30">Бетонный забор</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Дикая природа: Лоси у реки</h3>
+              <p class="text-xs text-neutral-400 font-sans">Монументальная панорама на бетонных панелях.</p>
+            </div>
+          </div>
+
+          <!-- 3 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151878930.jpg" alt="Маяк на скале" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 8]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-orange px-2 py-0.5 uppercase border border-acid-orange/30">Кирпичная постройка</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Маяк на каменистом берегу</h3>
+              <p class="text-xs text-neutral-400 font-sans">Глубокая проработка фактуры волн и камня по рельефному кирпичу.</p>
+            </div>
+          </div>
+
+          <!-- 4 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151727286.jpg" alt="Мурал троллейбус" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 7]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-lime px-2 py-0.5 uppercase border border-acid-lime/30">Многометровый фасад</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Городской транспорт и башня</h3>
+              <p class="text-xs text-neutral-400 font-sans">Высотная роспись здания со строительных лесов.</p>
+            </div>
+          </div>
+
+          <!-- 5 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151705766.jpg" alt="Воркаут арт" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 4]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-orange px-2 py-0.5 uppercase border border-acid-orange/30">Спортплощадка</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Workout: Атлет на брусьях</h3>
+              <p class="text-xs text-neutral-400 font-sans">Стилизованный спортивный персонаж для дворовой площадки.</p>
+            </div>
+          </div>
+
+          <!-- 6 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151686643.jpg" alt="Городской мурал" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 5]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-cyan px-2 py-0.5 uppercase border border-acid-cyan/30">Городской арт</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Стадион Труд и архитектура</h3>
+              <p class="text-xs text-neutral-400 font-sans">Сплошной многометровый забор вдоль оживленной городской улицы.</p>
+            </div>
+          </div>
+
+          <!-- 7 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1776151698060.jpg" alt="Символ Миасс" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 2]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-lime px-2 py-0.5 uppercase border border-acid-lime/30">Патриотический арт</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Я люблю Миасс</h3>
+              <p class="text-xs text-neutral-400 font-sans">Яркие цвета и контрастный графичный стиль для городской среды.</p>
+            </div>
+          </div>
+
+          <!-- 8 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="IMG_20260829_163744.jpg" alt="Портрет Пушкина" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 10]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-orange px-2 py-0.5 uppercase border border-acid-orange/30">Школьный интерьер</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Графика: А.С. Пушкин</h3>
+              <p class="text-xs text-neutral-400 font-sans">Аккуратная трафаретно-кистевая роспись в кабинете русского языка.</p>
+            </div>
+          </div>
+
+          <!-- 9 -->
+          <div class="group bg-dark-900 border-2 border-white/10 p-2.5 sm:p-3 shadow-brutal-black hover:shadow-brutal-lime hover:border-acid-lime transition-all duration-300 flex flex-col justify-between">
+            <div class="aspect-[4/3] overflow-hidden bg-black relative">
+              <img src="1788246316875.jpg" alt="Озеро во всю стену" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy">[cite: 9]
+              <span class="absolute top-2.5 left-2.5 bg-black/80 text-[9px] font-black text-acid-cyan px-2 py-0.5 uppercase border border-acid-cyan/30">Интерьерный мурал</span>
+            </div>
+            <div class="p-3 sm:p-4 space-y-1">
+              <h3 class="font-black text-sm sm:text-base uppercase text-white">Панорама озера и тайги</h3>
+              <p class="text-xs text-neutral-400 font-sans">Реалистичный природный пейзаж на всю торцевую стену класса.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Процесс -->
+    <section id="workflow" class="scroll-mt-20 py-16 sm:py-24 bg-dark-900/80 border-y border-white/10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-16 space-y-2">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-acid-lime">Алгоритм</span>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase text-white">КАК СТРОИТСЯ РАБОТА</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div class="p-6 sm:p-8 bg-dark-950 border-2 border-white/10 relative">
+            <div class="font-graffiti text-4xl sm:text-5xl text-acid-lime/30 absolute top-4 right-4">01</div>
+            <h3 class="font-black text-base sm:text-lg text-white uppercase mb-2 sm:mb-3">Заявка и замер</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Вы присылаете фото стены/ворот и ориентировочные размеры. Мы оцениваем состояние покрытия и объем работы.
+            </p>
+          </div>
+
+          <div class="p-6 sm:p-8 bg-dark-950 border-2 border-white/10 relative">
+            <div class="font-graffiti text-4xl sm:text-5xl text-acid-orange/30 absolute top-4 right-4">02</div>
+            <h3 class="font-black text-base sm:text-lg text-white uppercase mb-2 sm:mb-3">Эскиз и визуализация</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Разрабатываем индивидуальный рисунок и накладываем его прямо на фотографию вашего объекта.
+            </p>
+          </div>
+
+          <div class="p-6 sm:p-8 bg-dark-950 border-2 border-white/10 relative">
+            <div class="font-graffiti text-4xl sm:text-5xl text-acid-cyan/30 absolute top-4 right-4">03</div>
+            <h3 class="font-black text-base sm:text-lg text-white uppercase mb-2 sm:mb-3">Подготовка и роспись</h3>
+            <p class="text-xs text-neutral-400 font-sans leading-relaxed">
+              Грунтуем поверхность, наносим контуры и расписываем объект профессиональными баллонами и фасадной эмалью.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ОТДЕЛ: ЗАЯВКА -->
+    <section id="booking" class="scroll-mt-20 py-16 sm:py-24 px-4 sm:px-6 relative">
+      <div class="max-w-4xl mx-auto">
+        
+        <div class="text-center space-y-3 mb-8 sm:mb-12">
+          <div class="inline-block px-3 py-1 bg-acid-lime text-black font-black text-[10px] sm:text-xs uppercase tracking-widest clip-corner">
+            Оформить заказ
+          </div>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase text-white">ОСТАВИТЬ ЗАЯВКУ</h2>
+          <p class="text-neutral-400 text-xs sm:text-sm font-sans max-w-lg mx-auto">
+            Опишите ваш проект, укажите телефон и контакт для связи — мы рассчитаем смету и свяжемся с вами в течение дня!
+          </p>
+        </div>
+
+        <div class="bg-dark-900 border-2 border-white/20 p-5 sm:p-10 shadow-brutal-lime relative">
+          
+          <form id="orderForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="space-y-4 sm:space-y-5">
+            
+            <div>
+              <label for="clientName" class="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-white mb-1.5">Ваше имя *</label>
+              <input 
+                type="text" 
+                id="clientName" 
+                name="name" 
+                required 
+                placeholder="Как к вам обращаться?" 
+                class="w-full px-4 py-3 sm:py-3.5 bg-dark-950 border-2 border-white/10 text-white placeholder-neutral-600 focus:outline-none focus:border-acid-lime font-sans transition-colors rounded-none"
+              >
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div>
+                <label for="clientPhone" class="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-white mb-1.5">Телефон для связи *</label>
+                <input 
+                  type="tel" 
+                  id="clientPhone" 
+                  name="phone" 
+                  required 
+                  placeholder="+7 (999) 000-00-00" 
+                  class="w-full px-4 py-3 sm:py-3.5 bg-dark-950 border-2 border-white/10 text-white placeholder-neutral-600 focus:outline-none focus:border-acid-lime font-sans transition-colors rounded-none"
+                >
+              </div>
+
+              <div>
+                <label for="clientVk" class="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-neutral-300 mb-1.5">Страница ВКонтакте (по желанию)</label>
+                <input 
+                  type="text" 
+                  id="clientVk" 
+                  name="vk_link" 
+                  placeholder="@username или ссылка" 
+                  class="w-full px-4 py-3 sm:py-3.5 bg-dark-950 border-2 border-white/10 text-white placeholder-neutral-600 focus:outline-none focus:border-acid-cyan font-sans transition-colors rounded-none"
+                >
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <div>
+                <label for="surfaceSelect" class="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-white mb-1.5">Тип поверхности</label>
+                <select 
+                  id="surfaceSelect" 
+                  name="surface_type" 
+                  class="w-full px-4 py-3 sm:py-3.5 bg-dark-950 border-2 border-white/10 text-white focus:outline-none focus:border-acid-lime font-sans transition-colors rounded-none"
+                >
+                  <option value="Ворота (гараж / дом)">Ворота (гараж, дом, ворота)</option>
+                  <option value="Стена дома / фасад">Стена дома / коттеджа / фасад</option>
+                  <option value="Забор (бетон / металл)">Забор (бетонные панели, профлист)</option>
+                  <option value="Интерьер (комната, школа, зал)">Интерьер (комната, школа, спортзал)</option>
+                  <option value="Другой объект">Другой объект</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="targetDate" class="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-white mb-1.5">Желаемая дата старта</label>
+                <input 
+                  type="date" 
+                  id="targetDate" 
+                  name="target_date" 
+                  class="w-full px-4 py-3 sm:py-3.5 bg-dark-950 border-2 border-white/10 text-white focus:outline-none focus:border-acid-lime font-sans transition-colors rounded-none"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label for="taskDesc" class="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-white mb-1.5">Описание задачи, размеры и пожелания *</label>
+              <textarea 
+                id="taskDesc" 
+                name="task_description" 
+                required 
+                rows="4" 
+                placeholder="Пример: Хотим рисунок машины на гаражные ворота 3х2.5 м, либо природный пейзаж на стену коттеджа..." 
+                class="w-full px-4 py-3 sm:py-3.5 bg-dark-950 border-2 border-white/10 text-white placeholder-neutral-600 focus:outline-none focus:border-acid-lime font-sans transition-colors rounded-none"
+              ></textarea>
+            </div>
+
+            <!-- Чекбокс согласия на обработку персональных данных -->
+            <div class="pt-1">
+              <label class="flex items-start gap-3 cursor-pointer group select-none">
+                <input 
+                  type="checkbox" 
+                  id="consentCheckbox" 
+                  name="data_consent" 
+                  required 
+                  class="mt-1 w-4 h-4 rounded-none bg-dark-950 border-2 border-white/30 text-acid-lime focus:ring-0 focus:outline-none accent-acid-lime cursor-pointer"
+                >
+                <span class="text-xs text-neutral-400 font-sans leading-relaxed group-hover:text-neutral-300 transition-colors">
+                  Я соглашаюсь на обработку персональных данных и подтверждаю ознакомление с правилами связи мастера по указанным контактам *
+                </span>
+              </label>
+            </div>
+
+            <button 
+              type="submit" 
+              id="submitBtn" 
+              class="w-full py-4 sm:py-4.5 bg-acid-lime hover:bg-white text-black font-black text-xs sm:text-sm uppercase tracking-widest clip-corner shadow-brutal-orange active:scale-95 transition-all duration-200 cursor-pointer disabled:opacity-50"
+            >
+              Отправить заявку
+            </button>
+
+            <div id="formResult" class="hidden text-center text-xs font-bold py-3"></div>
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ОТДЕЛ: КОНТАКТЫ -->
+    <section id="contacts" class="scroll-mt-20 py-16 sm:py-24 bg-dark-900/80 border-t border-white/10 px-4 sm:px-6 relative">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="text-center max-w-2xl mx-auto mb-10 sm:mb-16 space-y-2">
+          <span class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-acid-orange">Связь с мастером</span>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-black uppercase text-white">ПРЯМЫЕ КОНТАКТЫ</h2>
+          <p class="text-xs sm:text-sm text-neutral-400 font-sans">
+            Звоните напрямую, пишите в личные сообщения или присоединяйтесь к сообществу в мессенджере MAX!
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+
+          <!-- 1. Телефон -->
+          <a href="tel:+79518101151" class="group p-6 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-lime shadow-brutal-black hover:shadow-brutal-lime transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 bg-acid-lime/10 text-acid-lime flex items-center justify-center font-graffiti text-xl mb-4 border border-acid-lime/20">
+                ☎
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-widest text-neutral-500">Телефон мастера</span>
+              <div class="text-base sm:text-lg font-black text-white mt-1 group-hover:text-acid-lime transition-colors">
+                +7 (951) 810-11-51
+              </div>
+            </div>
+            <span class="text-xs font-bold text-neutral-400 mt-4 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Позвонить прямо сейчас &rarr;
+            </span>
+          </a>
+
+          <!-- 2. ВК -->
+          <a href="https://vk.com/hantmedvedev" target="_blank" rel="noopener noreferrer" class="group p-6 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-cyan shadow-brutal-black hover:shadow-brutal-white transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 bg-acid-cyan/10 text-acid-cyan flex items-center justify-center font-graffiti text-lg mb-4 border border-acid-cyan/20">
+                VK
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-widest text-neutral-500">ВКонтакте</span>
+              <div class="text-base sm:text-lg font-black text-white mt-1 group-hover:text-acid-cyan transition-colors">
+                @hantmedvedev
+              </div>
+            </div>
+            <span class="text-xs font-bold text-neutral-400 mt-4 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Открыть профиль &rarr;
+            </span>
+          </a>
+
+          <!-- 3. MAX Профиль -->
+          <a href="https://max.ru/u/f9LHodD0cOJ9s8-kCSbUfqa4s1yEKWS9s4byIFRBFWxATIcoAiYO7RN7RsE" target="_blank" rel="noopener noreferrer" class="group p-6 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-orange shadow-brutal-black hover:shadow-brutal-orange transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 bg-acid-orange/10 text-acid-orange flex items-center justify-center font-graffiti text-lg mb-4 border border-acid-orange/20">
+                MAX
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-widest text-neutral-500">Личный контакт в MAX</span>
+              <div class="text-sm sm:text-base font-black text-white mt-1 group-hover:text-acid-orange transition-colors">
+                Страница мастера
+              </div>
+            </div>
+            <span class="text-xs font-bold text-neutral-400 mt-4 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Написать в чат MAX &rarr;
+            </span>
+          </a>
+
+          <!-- 4. MAX Группа -->
+          <a href="https://max.ru/join/SvrrOXslgUNFHO2ImjB7bBN79d9NCuJqbqhYG4DQmdk" target="_blank" rel="noopener noreferrer" class="group p-6 sm:p-7 bg-dark-950 border-2 border-white/10 hover:border-acid-lime shadow-brutal-black hover:shadow-brutal-lime transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 bg-acid-lime/10 text-acid-lime flex items-center justify-center font-graffiti text-lg mb-4 border border-acid-lime/20">
+                GRP
+              </div>
+              <span class="text-[9px] font-black uppercase tracking-widest text-neutral-500">Сообщество в MAX</span>
+              <div class="text-sm sm:text-base font-black text-white mt-1 group-hover:text-acid-lime transition-colors">
+                Группа «Хант»
+              </div>
+            </div>
+            <span class="text-xs font-bold text-neutral-400 mt-4 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Вступить в группу &rarr;
+            </span>
+          </a>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Подвал -->
+  <footer class="py-8 sm:py-10 bg-dark-950 border-t border-white/10 text-[11px] sm:text-xs text-neutral-500 font-sans">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left">
+      <div class="flex items-center gap-2">
+        <span class="font-heading font-black text-white text-sm sm:text-base">ХАНТ</span>
+      </div>
+      <div>&copy; 2026 ХАНТ ART. Все права защищены.</div>
+    </div>
+  </footer>
+
+  <!-- Скрипты -->
+  <script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    const orderForm = document.getElementById('orderForm');
+    const formResult = document.getElementById('formResult');
+    const submitBtn = document.getElementById('submitBtn');
+
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'ОТПРАВЛЯЕМ ДАННЫЕ...';
+
+      const formData = new FormData(orderForm);
+
+      try {
+        const response = await fetch(orderForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          formResult.textContent = '✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.';
+          formResult.className = 'text-center text-xs font-bold py-3 bg-acid-lime text-black border border-black';
+          orderForm.reset();
+        } else {
+          formResult.textContent = 'Ошибка сервиса отправки. Попробуйте еще раз или позвоните напрямую.';
+          formResult.className = 'text-center text-xs font-bold py-3 bg-acid-orange text-white';
+        }
+      } catch (err) {
+        formResult.textContent = 'Ошибка соединения. Проверьте интернет или свяжитесь по телефону.';
+        formResult.className = 'text-center text-xs font-bold py-3 bg-acid-orange text-white';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'ОТПРАВИТЬ ЗАЯВКУ';
+        formResult.classList.remove('hidden');
+
+        setTimeout(() => {
+          formResult.classList.add('hidden');
+        }, 8000);
+      }
+    });
+  </script>
+</body>
+</html>
